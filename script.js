@@ -40,23 +40,36 @@ function generateText() {
 
 function displayText() {
     textDisplay.innerHTML = '<div class="progress-bar" id="progressBar"></div>';
-    for (let i = 0; i < testText.length; i++) {
-        const charSpan = document.createElement('span');
-        charSpan.className = 'char';
+    const words = testText.split(' ');
+    let charIndex = 0;
 
-        if (testText[i] === ' ') {
-            charSpan.classList.add('space');
-            charSpan.innerHTML = '&nbsp;';
-        } else {
-            charSpan.textContent = testText[i];
+    words.forEach((word, wordIndex) => {
+        const wordContainer = document.createElement('span');
+        wordContainer.className = 'word';
+
+        for (let i = 0; i < word.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = word[i];
+            charSpan.id = `char-${charIndex}`;
+            if (charIndex === 0) {
+                charSpan.classList.add('current');
+            }
+            wordContainer.appendChild(charSpan);
+            charIndex++;
         }
 
-        charSpan.id = `char-${i}`;
-        if (i === 0) {
-            charSpan.classList.add('current');
+        textDisplay.appendChild(wordContainer);
+
+        if (wordIndex < words.length - 1) {
+            const spaceSpan = document.createElement('span');
+            spaceSpan.className = 'char space';
+            spaceSpan.innerHTML = '&nbsp;';
+            spaceSpan.id = `char-${charIndex}`;
+            textDisplay.appendChild(spaceSpan);
+            charIndex++;
         }
-        textDisplay.appendChild(charSpan);
-    }
+    });
 }
 
 function updateProgress() {
