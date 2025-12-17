@@ -1,0 +1,55 @@
+<div class="container" [class.blurred]="showResults">
+  <div class="header">
+    <div class="title">twype</div>
+  </div>
+
+  <div class="stats-bar">
+    <div>
+      <div class="timer" [class.warning]="isWarning">{{ timeLeft }}</div>
+      <div class="timer-label">time left</div>
+    </div>
+    <div class="stat-separator">|</div>
+    <div>
+      <div class="live-wpm">{{ liveWpm }}</div>
+      <div class="live-wpm-label">wpm</div>
+    </div>
+  </div>
+
+  <div class="text-display">
+    <div class="progress-bar" [style.width.%]="progress"></div>
+    @for (word of testWords; track $index; let wordIdx = $index) {
+    <span class="word">
+      @for (char of word.chars; track $index) {
+      <span class="char" [class]="char.status">{{ char.char }}</span>
+      }
+    </span>
+    @if (wordIdx < testWords.length - 1) { @let spaceIdx=getSpaceIndex(wordIdx); @if (spaceIdx < flatChars.length &&
+      flatChars[spaceIdx].isSpace) { <span class="char space" [class]="flatChars[spaceIdx].status">&nbsp;</span>
+      }
+      }
+      }
+  </div>
+
+  @if (!hasStarted) {
+  <div class="instructions">press any key to begin typing...</div>
+  }
+</div>
+
+@if (showResults) {
+<div class="results-overlay show">
+  <div class="results">
+    <div class="results-title">test complete</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">{{ finalWpm }}</div>
+        <div class="stat-label">words per minute</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ accuracy }}%</div>
+        <div class="stat-label">accuracy</div>
+      </div>
+    </div>
+    <button class="restart-btn" (click)="restart()">try again</button>
+  </div>
+</div>
+}
