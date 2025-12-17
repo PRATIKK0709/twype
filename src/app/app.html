@@ -1,19 +1,27 @@
 <div class="container" [class.blurred]="showResults">
-  <div class="header">
-    <div class="title">twype</div>
-  </div>
+  <nav class="toolbar">
+    <div class="toolbar-brand">twype</div>
 
-  <div class="stats-bar">
-    <div>
-      <div class="timer" [class.warning]="isWarning">{{ timeLeft }}</div>
-      <div class="timer-label">time left</div>
+    <div class="toolbar-center">
+      <div class="duration-pills">
+        <button [class.active]="selectedDuration === 15" [disabled]="hasStarted" (click)="setDuration(15)">15</button>
+        <button [class.active]="selectedDuration === 30" [disabled]="hasStarted" (click)="setDuration(30)">30</button>
+        <button [class.active]="selectedDuration === 60" [disabled]="hasStarted" (click)="setDuration(60)">60</button>
+      </div>
     </div>
-    <div class="stat-separator">|</div>
-    <div>
-      <div class="live-wpm">{{ liveWpm }}</div>
-      <div class="live-wpm-label">wpm</div>
+
+    <div class="toolbar-stats">
+      <div class="toolbar-stat">
+        <span class="toolbar-stat-value" [class.warning]="isWarning">{{ timeLeft }}</span>
+        <span class="toolbar-stat-label">sec</span>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-stat">
+        <span class="toolbar-stat-value">{{ liveWpm }}</span>
+        <span class="toolbar-stat-label">wpm</span>
+      </div>
     </div>
-  </div>
+  </nav>
 
   <div class="text-display">
     <div class="progress-bar" [style.width.%]="progress"></div>
@@ -31,25 +39,44 @@
   </div>
 
   @if (!hasStarted) {
-  <div class="instructions">press any key to begin typing...</div>
+  <div class="instructions">press any key to begin</div>
   }
 </div>
 
 @if (showResults) {
-<div class="results-overlay show">
+<div class="results-overlay">
   <div class="results">
-    <div class="results-title">test complete</div>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-value">{{ finalWpm }}</div>
-        <div class="stat-label">words per minute</div>
+    <div class="results-header">complete</div>
+
+    <div class="results-main">
+      <span class="results-wpm">{{ netWpm }}</span>
+      <span class="results-unit">wpm</span>
+    </div>
+
+    <div class="results-details">
+      <div class="results-detail">
+        <span class="detail-value">{{ rawWpm }}</span>
+        <span class="detail-label">raw</span>
       </div>
-      <div class="stat">
-        <div class="stat-value">{{ accuracy }}%</div>
-        <div class="stat-label">accuracy</div>
+      <div class="results-detail">
+        <span class="detail-value">{{ accuracy }}%</span>
+        <span class="detail-label">acc</span>
+      </div>
+      <div class="results-detail">
+        <span class="detail-value">{{ incorrectChars }}</span>
+        <span class="detail-label">err</span>
+      </div>
+      <div class="results-detail">
+        <span class="detail-value">{{ totalCharacters }}</span>
+        <span class="detail-label">chr</span>
       </div>
     </div>
-    <button class="restart-btn" (click)="restart()">try again</button>
+
+    <div class="chart-container">
+      <canvas #wpmChart></canvas>
+    </div>
+
+    <button class="restart-btn" (click)="restart()">again</button>
   </div>
 </div>
 }

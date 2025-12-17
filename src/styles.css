@@ -2,14 +2,11 @@ body {
     font-family: 'Courier New', monospace;
     background: linear-gradient(135deg, #f5e6d3 0%, #e8dcc4 50%, #d9cbb8 100%);
     color: #2c2416;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    padding: 20px;
-    position: relative;
-    overflow-x: hidden;
+    height: 100vh;
     margin: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 body::before {
