@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container" id="mainContainer">
+        <div class="header">
+            <div class="title">typewriter</div>
+        </div>
+
+        <div class="stats-bar">
+            <div>
+                <div class="timer" id="timer">15</div>
+                <div class="timer-label">time left</div>
+            </div>
+            <div class="stat-separator">|</div>
+            <div>
+                <div class="live-wpm" id="liveWpm">0</div>
+                <div class="live-wpm-label">wpm</div>
+            </div>
+        </div>
+
+        <div class="text-display" id="textDisplay">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="instructions" id="instructions">
+            press any key to begin typing...
+        </div>
+    </div>
+
+    <div class="results-overlay" id="resultsOverlay">
+        <div class="results">
+            <div class="results-title" id="resultsTitle">test complete</div>
+            <div class="stats">
+                <div class="stat" id="wpmStat">
+                    <div class="stat-value" id="wpmValue"></div>
+                    <div class="stat-label" id="wpmLabel">words per minute</div>
+                </div>
+                <div class="stat" id="accuracyStat">
+                    <div class="stat-value" id="accuracyValue"></div>
+                    <div class="stat-label" id="accuracyLabel">accuracy</div>
+                </div>
+            </div>
+            <button class="restart-btn" id="restartBtn" onclick="restart()"><span>try again</span></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
